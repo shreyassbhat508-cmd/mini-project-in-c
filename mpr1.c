@@ -56,41 +56,53 @@ void drawLine(int x0, int y0, int x1, int y1) {
 
     while (1) {
         plot(x0, y0);
-        if (x0 == x1 && y0 == y1) break;
+        if (x0 == x1 && y0 == y1) 
+            break;
         e2 = 2 * err;
-        if (e2 >= dy) { err += dy; x0 += sx; }
-        if (e2 <= dx) { err += dx; y0 += sy; }
+        if (e2 >= dy) { err += dy; x0 += sx; 
+                      }
+        if (e2 <= dx) { err += dx; y0 += sy; 
+                      }
     }
 }
 
-void drawRectangle(int x1, int y1, int x2, int y2) {
+void drawRectangle(int x1, int y1, int x2, int y2) 
+{
     drawLine(x1, y1, x2, y1); // Top
     drawLine(x1, y2, x2, y2); // Bottom
     drawLine(x1, y1, x1, y2); // Left
     drawLine(x2, y1, x2, y2); // Right
 }
 
-void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3) {
+void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3) 
+{
     drawLine(x1, y1, x2, y2);
     drawLine(x2, y2, x3, y3);
     drawLine(x3, y3, x1, y1);
 }
 
 // Midpoint Circle Algorithm
-void drawCircle(int xc, int yc, int r) {
+void drawCircle(int xc, int yc, int r) 
+{
     int x = 0, y = r;
     int d = 3 - 2 * r;
     
     while (y >= x) {
-        plot(xc + x, yc + y); plot(xc - x, yc + y);
-        plot(xc + x, yc - y); plot(xc - x, yc - y);
-        plot(xc + y, yc + x); plot(xc - y, yc + x);
-        plot(xc + y, yc - x); plot(xc - y, yc - x);
+        plot(xc + x, yc + y); 
+        plot(xc - x, yc + y);
+        plot(xc + x, yc - y); 
+        plot(xc - x, yc - y);
+        plot(xc + y, yc + x); 
+        plot(xc - y, yc + x);
+        plot(xc + y, yc - x); 
+        plot(xc - y, yc - x);
         x++;
-        if (d > 0) {
+        if (d > 0) 
+        {
             y--;
             d = d + 4 * (x - y) + 10;
-        } else {
+        } else 
+        {
             d = d + 4 * x + 6;
         }
     }
@@ -124,16 +136,19 @@ void inputObjectDetails(GraphicObject *obj) {
     scanf("%d", &type);
     obj->type = (ShapeType)type;
 
-    if (obj->type == LINE || obj->type == RECTANGLE) {
+    if (obj->type == LINE || obj->type == RECTANGLE) 
+    {
         printf("Enter coordinate 1 (x1 y1) [0-%d, 0-%d]: ", COLS-1, ROWS-1);
         scanf("%d %d", &obj->x1, &obj->y1);
         printf("Enter coordinate 2 (x2 y2) [0-%d, 0-%d]: ", COLS-1, ROWS-1);
         scanf("%d %d", &obj->x2, &obj->y2);
-    } else if (obj->type == TRIANGLE) {
+    } else if (obj->type == TRIANGLE)
+    {
         printf("Enter Vertex 1 (x1 y1): "); scanf("%d %d", &obj->x1, &obj->y1);
         printf("Enter Vertex 2 (x2 y2): "); scanf("%d %d", &obj->x2, &obj->y2);
         printf("Enter Vertex 3 (x3 y3): "); scanf("%d %d", &obj->x3, &obj->y3);
-    } else if (obj->type == CIRCLE) {
+    } else if (obj->type == CIRCLE) 
+    {
         printf("Enter Center coordinate (xc yc): ");
         scanf("%d %d", &obj->x1, &obj->y1);
         printf("Enter Radius: ");
@@ -142,7 +157,8 @@ void inputObjectDetails(GraphicObject *obj) {
 }
 
 void addObject() {
-    if (object_count >= MAX_OBJECTS) {
+    if (object_count >= MAX_OBJECTS) 
+    {
         printf("Error: Object limit reached!\n");
         return;
     }
@@ -154,17 +170,22 @@ void addObject() {
 
 void listObjects() {
     printf("\n--- Current Objects List ---\n");
-    if (object_count == 0) {
+    if (object_count == 0) 
+    {
         printf("No objects found.\n");
         return;
     }
     for (int i = 0; i < object_count; i++) {
         printf("ID: %d | ", i);
         switch (objects[i].type) {
-            case LINE: printf("Line [(%d,%d) to (%d,%d)]\n", objects[i].x1, objects[i].y1, objects[i].x2, objects[i].y2); break;
-            case RECTANGLE: printf("Rectangle [(%d,%d) to (%d,%d)]\n", objects[i].x1, objects[i].y1, objects[i].x2, objects[i].y2); break;
-            case TRIANGLE: printf("Triangle [(%d,%d), (%d,%d), (%d,%d)]\n", objects[i].x1, objects[i].y1, objects[i].x2, objects[i].y2, objects[i].x3, objects[i].y3); break;
-            case CIRCLE: printf("Circle [Center:(%d,%d), Radius:%d]\n", objects[i].x1, objects[i].y1, objects[i].radius); break;
+            case LINE: printf("Line [(%d,%d) to (%d,%d)]\n", objects[i].x1, objects[i].y1, objects[i].x2, objects[i].y2);
+                break;
+            case RECTANGLE: printf("Rectangle [(%d,%d) to (%d,%d)]\n", objects[i].x1, objects[i].y1, objects[i].x2, objects[i].y2); 
+                break;
+            case TRIANGLE: printf("Triangle [(%d,%d), (%d,%d), (%d,%d)]\n", objects[i].x1, objects[i].y1, objects[i].x2, objects[i].y2, objects[i].x3, objects[i].y3); 
+                break;
+            case CIRCLE: printf("Circle [Center:(%d,%d), Radius:%d]\n", objects[i].x1, objects[i].y1, objects[i].radius); 
+                break;
         }
     }
 }
@@ -226,11 +247,16 @@ int main() {
         scanf("%d", &choice);
 
         switch (choice) {
-            case 1: displayCanvas(); break;
-            case 2: addObject(); break;
-            case 3: deleteObject(); break;
-            case 4: modifyObject(); break;
-            case 5: listObjects(); break;
+            case 1: displayCanvas(); 
+                break;
+            case 2: addObject(); 
+                break;
+            case 3: deleteObject(); 
+                break;
+            case 4: modifyObject();
+                break;
+            case 5: listObjects(); 
+                break;
             case 6: exit(0);
             default: printf("Invalid choice! Try again.\n");
         }
